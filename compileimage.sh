@@ -1,0 +1,1 @@
+g++ $(pkg-config --cflags --libs opencv) -Wall -std=c++17 -O2 -o main2 main2.cpp voronoi.cpp construct.cpp
