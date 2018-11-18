@@ -2,7 +2,7 @@
 
 ## General Information
 
-Fortune's algorithm has been implemented in C++ to generate 2D Voronoi diagrams from a set of *n* points in O(*n* log *n*). The code can be used to generate a [coloured image](https://github.com/AngusRitossa/Voronoi/blob/master/examples/image.jpg "image.jpg") of the voronoi diagram using [OpenCV](https://opencv.org "OpenCV").
+Fortune's algorithm has been implemented in C++ to generate 2D Voronoi diagrams from a set of *n* points in O(*n* log *n*). The code can be used to generate a [coloured image](https://github.com/AngusRitossa/Voronoi/blob/master/examples/image.jpg "image.jpg") of the voronoi diagram using [OpenCV](https://opencv.org "OpenCV"). Thank you to [this tutorial](https://jacquesh.github.io/post/fortunes-algorithm/ "Fortunes Algorithm: An intuitive explanation") for providing a great explanation of Fortune's algorithm. 
 
 ## Usage
 
@@ -25,18 +25,18 @@ The class also has one member function, `sortPoints()`, which sorts the vector `
 #### VoronoiDiagram
 
 This is the class that stores the completed Voronoi diagram. Stored in the class is 
-- `mnx`, `mxx`, `mny` and `mxy` which define the bounding box
-- `points`, a vector of `Point` which are the points which were used to generate the Voronoi diagram
-- `edges`, a vector of pairs of `Point` which stores all the edges in the Voronoi diagram (excluding those on the bounding box)
-- `cells`, a vector of `VoronoiCell*` which stores all the cells in the Voronoi diagram
+- `mnx`, `mxx`, `mny` and `mxy`, which define the bounding box
+- `points`, a vector of `Point`, which are the points which were used to generate the Voronoi diagram
+- `edges`, a vector of pairs of `Point`, which stores all the edges in the Voronoi diagram (excluding those on the bounding box)
+- `cells`, a vector of `VoronoiCell*`, which stores all the cells in the Voronoi diagram
 
 #### makeVoronoi()
 
-The function, `VoronoiDiagram* makeVoronoi(int n, long double *x, long double *y, long double mnx, long double mxx, long double mny, long double mxy)`, implemented in `voronoi.cpp`, is what creates the Voronoi diagram. The argument `n` is the number of points that will be used to make the Voronoi diagram, `*x` and `*y` are arrays of length `n` which store the points, and `mnx`, `mxx`, `mny` and `mxy` define the bounding box. The function returns a pointer to the `VoronoiDiagram` it creates.
+The function, `VoronoiDiagram* makeVoronoi(int n, long double *x, long double *y, long double mnx, long double mxx, long double mny, long double mxy)`, implemented in `voronoi.cpp`, is what creates the Voronoi diagram. The argument `n` is the number of points that will be used to make the Voronoi diagram, `*x` and `*y` are arrays of length `n`, which store the points, and `mnx`, `mxx`, `mny` and `mxy` define the bounding box. The function returns a pointer to the `VoronoiDiagram` it creates.
 
 #### makeImage()
 
-The function, `void makeImage(std::string imagename, VoronoiDiagram* v, bool colour = true)`, implemented in `construct.cpp` is what creates the image of the Voronoi diagram. The first argument is the name of the image that this function will create, the second argument is the VoronoiDiagram to base the image off and the third argument is whether or not the cells should be coloured. The function creates an image called `imagename.jpg`. This requires [OpenCV](https://opencv.org "OpenCV").
+The function, `void makeImage(std::string imagename, VoronoiDiagram* v, bool colour = true)`, implemented in `construct.cpp`, is what creates the image of the Voronoi diagram. The first argument is the name of the image that this function will create, the second argument is the VoronoiDiagram to base the image off and the third argument is whether or not the cells should be coloured. The function creates an image called `imagename.jpg`. This requires [OpenCV](https://opencv.org "OpenCV").
 
 ### Sample Code
 
@@ -57,3 +57,11 @@ Both sample main functions use the same input format.
 #### main2.cpp
 
 `main2.cpp`, compiled with `compile2.sh`, provides a sample implementation of a main function which creates a Voronoi diagram and then creates an image named `image.jpg` based on it. 
+
+#### examples/gen.cpp
+
+Scans in an integer *n* and generates *n* random points, printed in the correct format to be used with `main.cpp` and `main2.cpp`
+
+#### examples/image.jpg
+
+An example of an image that was created from `examples/in.txt`

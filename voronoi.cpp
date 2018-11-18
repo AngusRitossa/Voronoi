@@ -1,3 +1,4 @@
+/* Code for generating the voronoi diagram */
 #include "voronoi.h"
 #ifdef DEBUG
 	#define D(x...) printf(x)
