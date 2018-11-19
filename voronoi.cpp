@@ -567,7 +567,9 @@ VoronoiDiagram* makeVoronoi(int n, ld *x, ld *y, ld mnx, ld mxx, ld mny, ld mxy)
 				merge(treap, treap, right);
 				continue;
 			}
+			#ifdef DEBUG
 			printBeachLine(treap);
+			#endif
 			// Find the arc on the beachline that this splits
 			std::pair<bool, int> locOnBeachLine = findOnBeachLine(treap, a.point->x, a.y);
 			int loc = locOnBeachLine.second;
