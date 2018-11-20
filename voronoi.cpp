@@ -89,7 +89,7 @@ std::pair<pedge, pedge> findGrowingEdges(ld startx, ld starty, ppoint a, ppoint 
 std::pair<ld, ld> quadraticSolution(ld a, ld b, ld c) // Returns the two real roots of a quadratic, assumes they exist
 {
 	// Special case time: a == 0
-	if (fabs(a) < 1e-6)
+	if (fabs(a) < 1e-7)
 	{
 		return { -c/b, -c/b };
 	}
@@ -298,7 +298,7 @@ std::pair<ld, ld> extendRayToInfinity(Point p, pedge e)
 	{
 		ld am;
 		if (e->vx > 0) am = 1e10 - p.x;
-		else am = -1e10 + p.x;
+		else am = -1e10 - p.x;
 		ld multam = am / e->vx;
 		x = p.x + multam*e->vx; // = 1e18
 		y = p.y + multam*e->vy;
@@ -307,7 +307,7 @@ std::pair<ld, ld> extendRayToInfinity(Point p, pedge e)
 	{
 		ld am;
 		if (e->vy > 0) am = 1e10 - p.y;
-		else am = -1e10 + p.y;
+		else am = -1e10 - p.y;
 		ld multam = am / e->vy; 
 		y = p.y + multam*e->vy; // = 1e18
 		x = p.x + multam*e->vx;
@@ -435,7 +435,7 @@ void VoronoiCell::sortPoints()
 	std::vector<Point> left, right;
 	for (auto a : points)
 	{
-		if (a.x < point.x) left.push_back(a);
+		if (a.x < point.x || (a.x == point.x && a.y < point.y)) left.push_back(a);
 		else right.push_back(a);
 	}
 	// Sort individually
@@ -481,16 +481,19 @@ void updateFullEdge(pedge a, ld x, ld y) // Ends the growing edge at the coordin
 }
 void sameHeightCreateEdges(pnode a, pnode b, ld mxhei, std::vector<pfulledge> &edges) // For two nodes at the same height (the highest nodes), create the growing edges between them 
 {
+	// Remove the old ones if they exists
+	if (a->rightEdge) a->rightEdge->fullEdge->edge1->vy = 1;
+	if (b->leftEdge) b->leftEdge->fullEdge->edge1->vy = 1;
 	// Find the growing edges, one will be pointing directly upwards, one downwards
 	pedge growingEdge = new GrowingEdge();
 	growingEdge->x = (a->focus->x + b->focus->x)/2;
-	growingEdge->y = 1e10;
+	growingEdge->y = 1e15;
 	growingEdge->vx = 0;
 	growingEdge->vy = -1;
 	// Create the full edge
 	pfulledge fullEdge = new Edge();
 	fullEdge->edge1 = growingEdge;
-	fullEdge->point2 = new Point(growingEdge->x, 1e10);
+	fullEdge->point2 = new Point(growingEdge->x, 1e15);
 	fullEdge->cell1 = a->cell;
 	fullEdge->cell2 = b->cell;
 	growingEdge->fullEdge = fullEdge;
