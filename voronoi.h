@@ -6,6 +6,7 @@
 #include <queue>
 #include <set>
 #include <string>
+#include <cassert>
 typedef long double ld;
 typedef class Point* ppoint;
 typedef class GrowingEdge* pedge;

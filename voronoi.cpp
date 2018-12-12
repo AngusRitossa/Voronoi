@@ -89,7 +89,7 @@ std::pair<pedge, pedge> findGrowingEdges(ld startx, ld starty, ppoint a, ppoint 
 std::pair<ld, ld> quadraticSolution(ld a, ld b, ld c) // Returns the two real roots of a quadratic, assumes they exist
 {
 	// Special case time: a == 0
-	if (fabs(a) < 1e-7)
+	if (fabs(a) < 1e-9)
 	{
 		return { -c/b, -c/b };
 	}
@@ -330,7 +330,7 @@ void Edge::increaseToInfinity()
 	}
 	if (point2) std::swap(point1, point2), std::swap(edge1, edge2);
 	point2 = new Point(0, 0);
-	std::pair coords = extendRayToInfinity(*point1, edge2);
+	std::pair<ld, ld> coords = extendRayToInfinity(*point1, edge2);
 	point2->x = coords.first;
 	point2->y = coords.second;
 }

@@ -5,13 +5,6 @@
 #include <opencv2/imgproc.hpp> 
 int WIDTH = 5000;
 int HEIGHT = 5000;
-/*int main()
-{    
-	// Create white empty image
-	cv::Mat image = cv::Mat(1000, 1000, CV_8UC3, cv::Scalar(255,255,255));
-	cv::line(image, cv::Point(0,0), cv::Point(511,511), cv::Scalar(255,0,0), 1);
-	cv::imwrite("image.jpg", image);
-}*/
 std::pair<ld, ld> convertToPixels(ld x, ld y, ld width, ld height, VoronoiDiagram* v)
 {
 	ld a = (x - v->mnx)/(v->mxx - v->mnx);
@@ -23,7 +16,7 @@ std::pair<ld, ld> convertToPixels(ld x, ld y, ld width, ld height, VoronoiDiagra
 void makeImage(std::string imagename, VoronoiDiagram* v, bool colour)
 {
 	srand(time(nullptr));
-	cv::Mat image = cv::Mat(WIDTH, HEIGHT, CV_8UC3, cv::Scalar(255,255,255));
+	cv::Mat image = cv::Mat(HEIGHT, WIDTH, CV_8UC3, cv::Scalar(255,255,255));
 	if (colour) // Colour the cells
 	{
 		for (auto cell : v->cells)
